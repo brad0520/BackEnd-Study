@@ -17,8 +17,8 @@ public class calculator {
 			Scanner sc = new Scanner(System.in);
 			int select = Integer.parseInt(sc.nextLine());
 
-			String str = new String();
-			String form1 = new String();
+			String str = "";
+			String form1 = "";
 
 			
 			switch (select) {
