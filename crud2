@@ -1,8 +1,8 @@
-package java2021;
+package javaStudy;
 
 import java.util.Scanner;
 
-public class java20210201901 {
+public class crud2 {
 
 	public static void main(String[] args) {
 
@@ -32,7 +32,7 @@ public class java20210201901 {
 				System.out.println(data + "이/가 저장되었습니다.");
 
 			} else if(command.equals("read")) {
-				if(data == "") {
+				if("".equals(data)) {
 					System.out.println("저장되어 있는 값이 없습니다.");					
 				} else {
 					System.out.println("현재 저장되어 있는 값 : " + data );					
@@ -43,7 +43,7 @@ public class java20210201901 {
 				System.out.println(data + "로 값이 수정되었습니다.");	
 			} else if(command.equals("delete")) {
 				System.out.println(data + "값이 삭제되었습니다.");
-				data = null;	
+				data = "";	
 			} 
 		}
 	}
