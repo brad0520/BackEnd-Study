@@ -28,15 +28,15 @@ public class java20210222 {
 				System.out.println("exit : 프로그램 종료");
 				System.out.println("==========================");
 			} else if(command.equals("add")) {
+				if (i>=3) {
+				System.out.println("더 이상 저장할 수 없습니다.");
+				} else {
 				System.out.println("저장할 값을 입력해주세요 : ");
-				for (int i = 0; i < data.length; i++) {
-					if (data[i] == null) {
-						String newData = sc.next();
-						data[i] = newData;
-						System.out.println(newData + "이/가 저장되었습니다.");
-					} else {
-						break;
-					}
+				String str = sc.next();
+				data[i] = str;
+				System.out.println(str + "이/가 저장되었습니다.");
+				i = i + 1;
+				}
 				}
 				//				저장 주소를 기억하는 방식으로 코딩
 			} else if(command.equals("read")) {
