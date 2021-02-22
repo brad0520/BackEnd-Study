@@ -38,6 +38,7 @@ public class java20210222 {
 						break;
 					}
 				}
+				//				저장 주소를 기억하는 방식으로 코딩
 			} else if(command.equals("read")) {
 				if(data.length == 0) {
 					System.out.println("저장되어 있는 값이 없습니다.");					
