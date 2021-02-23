@@ -6,7 +6,7 @@ public class lottoShuffle {
 //		1부터 45까지 배열 만들기
 		int[] ball = new int[45];
 		
-		for (int i=1; i<45; i++) {
+		for (int i=0; i<45; i++) {
 			ball[i] = i+1;
 		}
 
