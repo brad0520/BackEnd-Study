@@ -43,15 +43,22 @@ public class java20210222 {
 					break;
 				}
 			} else if(command.equals("read")) {
-				System.out.print("[ ");
-				for (int i=0; i<count; i++) {
-					if (i < count-1) {
-						System.out.print(i + ": " + datas[i] + ", " );
-					} else {
-						System.out.print(i + ": " + datas[i]);
+				while(true) {
+					if (count==0) {
+						System.out.println("저장된 값이 없습니다.");
+						break;
 					}
+					System.out.print("[ ");
+					for (int i=0; i<count; i++) {
+						if (i < count-1) {
+							System.out.print(i + ": " + datas[i] + ", " );
+						} else {
+							System.out.print(i + ": " + datas[i]);
+						}
+					}
+					System.out.print(" ]\n");
+					break;
 				}
-				System.out.print(" ]\n");
 			} else if(command.equals("update")) {
 				System.out.println("몇번 데이터를 수정하시겠습니까? : ");
 				inputedIndex = Integer.parseInt(sc.next());
@@ -65,8 +72,12 @@ public class java20210222 {
 				System.out.println(datas[inputedIndex] + "값이 삭제되었습니다.");
 				datas[inputedIndex] = null;	
 				
-// 				for(int i = inputedIndex+1; i < count; i++) {
-// 				datas[i-1]=datas[i];
+
+				for(int i = inputedIndex; i < count-1; i++) {
+					datas[i]=datas[i+1];
+				} 
+
+				count--;
 			} 
 		}
 	}
