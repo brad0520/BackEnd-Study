@@ -64,6 +64,9 @@ public class java20210222 {
 				inputedIndex = Integer.parseInt(sc.next());
 				System.out.println(datas[inputedIndex] + "값이 삭제되었습니다.");
 				datas[inputedIndex] = null;	
+				
+// 				for(int i = inputedIndex+1; i < count; i++) {
+// 				datas[i-1]=datas[i];
 			} 
 		}
 	}
