@@ -8,8 +8,10 @@ public class java20210222 {
 	public static void main(String[] args) {
 
 		Scanner sc = new java.util.Scanner(System.in);
-
-		String[] data = new String[3];
+		String[] datas = new String[3];
+		String inputedData = null;
+		int count = 0;
+		int inputedIndex = 0; 
 
 		while(true) {
 			System.out.println("명령어를 입력해주세요 : ");
@@ -28,30 +30,40 @@ public class java20210222 {
 				System.out.println("exit : 프로그램 종료");
 				System.out.println("==========================");
 			} else if(command.equals("add")) {
-				if (i>=3) {
-				System.out.println("더 이상 저장할 수 없습니다.");
-				} else {
-				System.out.println("저장할 값을 입력해주세요 : ");
-				String str = sc.next();
-				data[i] = str;
-				System.out.println(str + "이/가 저장되었습니다.");
-				i = i + 1;
+				while (true) {
+					if (count == 3) {
+						System.out.println("더 이상 저장할 수 없습니다.");
+						break;
+					} 
+					System.out.println("저장할 값을 입력해주세요 : ");
+					inputedData = sc.next();
+					datas[count] = inputedData;
+					System.out.println(inputedData + " 이/가 저장되었습니다.");
+					count++;
+					break;
 				}
-				}
-				//				저장 주소를 기억하는 방식으로 코딩
 			} else if(command.equals("read")) {
-				if(data.length == 0) {
-					System.out.println("저장되어 있는 값이 없습니다.");					
-				} else {
-					System.out.println("현재 저장되어 있는 값 : " + Arrays.toString(data));					
+				System.out.print("[ ");
+				for (int i=0; i<count; i++) {
+					if (i < count-1) {
+						System.out.print(i + ": " + datas[i] + ", " );
+					} else {
+						System.out.print(i + ": " + datas[i]);
+					}
 				}
+				System.out.print(" ]\n");
 			} else if(command.equals("update")) {
+				System.out.println("몇번 데이터를 수정하시겠습니까? : ");
+				inputedIndex = Integer.parseInt(sc.next());
 				System.out.println("수정할 값을 입력해주세요 : ");
-				data[0] = sc.next();
-				System.out.println(data + "로 값이 수정되었습니다.");	
+				inputedData = sc.next();
+				System.out.println(inputedData + "로 값이 수정되었습니다.");	
+				datas[inputedIndex] = inputedData;
 			} else if(command.equals("delete")) {
-				System.out.println(data + "값이 삭제되었습니다.");
-				data[0] = "";	
+				System.out.println("몇번 데이터를 삭제하시겠습니까? : ");
+				inputedIndex = Integer.parseInt(sc.next());
+				System.out.println(datas[inputedIndex] + "값이 삭제되었습니다.");
+				datas[inputedIndex] = null;	
 			} 
 		}
 	}
