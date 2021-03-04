@@ -3,12 +3,12 @@ package bbs;
 public class listContent_bbs {
 
 	//	============================================================
-	//	listPart ¸Þ¼­µå ¼±¾ð
+	//	listContent ë©”ì„œë“œ ì„ ì–¸
 	public static void listContent(int i) {
-		System.out.println("\n===== " + repository.numbers.get(i) + "¹ø °Ô½Ã¹° =======");
-		System.out.println("¹øÈ£ : " + repository.numbers.get(i));
-		System.out.println("Á¦¸ñ : " + repository.titles.get(i));
-		System.out.println("³»¿ë : " + repository.bodies.get(i));
+		System.out.println("\n===== " + repository.numbers.get(i) + "ë²ˆ ê²Œì‹œë¬¼ =======");
+		System.out.println("ë²ˆí˜¸ : " + repository.numbers.get(i));
+		System.out.println("ì œëª© : " + repository.titles.get(i));
+		System.out.println("ë‚´ìš© : " + repository.bodies.get(i));
 		System.out.println("======================");
 	}
 }
