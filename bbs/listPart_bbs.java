@@ -3,11 +3,10 @@ package bbs;
 public class listPart_bbs {
 
 	//	============================================================
-	//	listPart ¸Þ¼­µå ¼±¾ð
+	//	listPart ë©”ì„œë“œ ì„ ì–¸
 	public static void listPart(int i) {
-			System.out.println("¹øÈ£ : " + repository.numbers.get(i));
-			System.out.println("Á¦¸ñ : " + repository.titles.get(i));
-			//			System.out.println("³»¿ë : " + bodies.get(i));
+			System.out.println("ë²ˆí˜¸ : " + repository.numbers.get(i));
+			System.out.println("ì œëª© : " + repository.titles.get(i));
 			System.out.println("======================");
 	}
 }
