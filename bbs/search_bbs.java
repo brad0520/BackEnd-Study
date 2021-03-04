@@ -1,4 +1,4 @@
-package java2021;
+package bbs;
 
 public class search_bbs {
 
@@ -9,45 +9,39 @@ public class search_bbs {
 
 		System.out.println("검색 항목을 선택해주세요 (1. 제목, 2. 내용, 3. 제목 + 내용) : ");
 		
-		int command = Integer.parseInt(bbs.sc.next());
+		int command = repository.sc.nextInt();
 		String keyword = "";
 		
 		switch(command) {
 		case 1: 		
 			System.out.println("검색 제목을 입력해주세요 : ");
-			keyword = bbs.sc.next();
+			keyword = repository.sc.next();
 			System.out.println("======================");
-			for(int i = 0; i < bbs.titles.size(); i++) {
-				if (bbs.titles.get(i).contains(keyword)) {
-					System.out.println("번호 : " + bbs.numbers.get(i));
-					System.out.println("제목 : " + bbs.titles.get(i));
-					System.out.println("======================");
+			for(int i = 0; i < repository.titles.size(); i++) {
+				if (repository.titles.get(i).contains(keyword)) {
+					listPart_bbs.listPart(i);
 				}
 			}
 			break;
 			
 		case 2:
 			System.out.println("검색 내용을 입력해주세요 : ");
-			keyword = bbs.sc.next();
+			keyword = repository.sc.next();
 			System.out.println("======================");
-			for(int i = 0; i < bbs.titles.size(); i++) {
-				if (bbs.bodies.get(i).contains(keyword)) {
-					System.out.println("번호 : " + bbs.numbers.get(i));
-					System.out.println("제목 : " + bbs.titles.get(i));
-					System.out.println("======================");
+			for(int i = 0; i < repository.bodies.size(); i++) {
+				if (repository.bodies.get(i).contains(keyword)) {
+					listPart_bbs.listPart(i);
 				}
 			}
 			break;
 			
 		case 3:
 			System.out.println("키워드를 입력해주세요 : ");
-			keyword = bbs.sc.next();
+			keyword = repository.sc.next();
 			System.out.println("======================");
-			for(int i = 0; i < bbs.bodies.size(); i++) {
-				if (bbs.titles.get(i).contains(keyword)||bbs.bodies.get(i).contains(keyword)) {
-					System.out.println("번호 : " + bbs.numbers.get(i));
-					System.out.println("제목 : " + bbs.titles.get(i));
-					System.out.println("======================");
+			for(int i = 0; i < repository.bodies.size(); i++) {
+				if (repository.titles.get(i).contains(keyword)||repository.bodies.get(i).contains(keyword)) {
+					listPart_bbs.listPart(i);
 				}
 			}
 			break;
