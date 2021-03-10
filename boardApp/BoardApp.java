@@ -8,9 +8,12 @@ class BoardApp {
 	ArrayList<Article> articles = new ArrayList<Article>();
 	ArrayList<Reply> replies = new ArrayList<Reply>();
 	ArrayList<Member> members = new ArrayList<Member>();
-	
-	int num = 4;
 
+	int num = 4;
+	int rNum = 1;
+	int mNum = 1;
+	Member loginedMember = new Member(0, null, null, null);
+	
 	public void start() {
 
 		Article a1 = new Article(1, "안녕하세요", "안녕하세요", "2021.03.08", "익명", 30);
@@ -46,8 +49,15 @@ class BoardApp {
 
 			} else if (command.equals("search")) {
 				searchArticle();
+
 			} else if (command.equals("read")) {
 				readArticle();
+				
+			} else if (command.equals("signup")) {
+				addMember();
+				
+			} else if (command.equals("signin")) {
+				loginMember();
 			}
 		}
 	}
@@ -143,6 +153,7 @@ class BoardApp {
 		System.out.println("update : 데이터 수정");
 		System.out.println("delete : 데이터 삭제");
 		System.out.println("exit : 프로그램 종료");
+		System.out.println("signup : 회원가입");
 		System.out.println("========================");
 	}
 
@@ -239,7 +250,7 @@ class BoardApp {
 				break;
 
 			} else if (command == 5) {
-				System.out.println("목록을 돌아갑니다.");
+				printArticleList(articles);
 				break;
 			}
 		}
@@ -250,12 +261,15 @@ class BoardApp {
 
 		System.out.println("댓글 내용을 입력해주세요 :");
 		String newReply = sc.next();
-		Reply reply = new Reply(newReply, "익명", "2021.03.08");
+		String regDate = Util.getNowDate();
+		Reply reply = new Reply(rNum, a1.num, newReply, "익명", regDate);
 		replies.add(reply);
 		System.out.println("댓글이 등록되었습니다.");
-		
+
 		printArticle(a1);
-		
+
+		//		게시글별로 댓글이 관리가 되야하지 않을까? 
+		//		그러면 게시글의 번호를 갖는 댓글만 먼저 정리하는 과정이 필요하지 않을지...
 		System.out.println("=========댓글=========");
 		for (int i=0; i<replies.size(); i++) {
 			Reply r1 = replies.get(i);
@@ -265,20 +279,25 @@ class BoardApp {
 		}
 		System.out.println("====================");
 
+		rNum++;
 	}
-	
-	
+
+
 	//=================================================================
 	public void addMember() {
-		System.out.println("아이디를 입력해주세요 :");
+		System.out.println("==== 회원 가입을 진행합니다. ====");
+		System.out.print("아이디를 입력해주세요 : ");
 		String id = sc.next();
-		System.out.println("비밀번호를 입력해주세요 :");
+		System.out.print("비밀번호를 입력해주세요 : ");
 		String pw = sc.next();
-		System.out.println("닉네임을 입력해주세요 :");
+		System.out.print("닉네임을 입력해주세요 : ");
 		String nick = sc.next();
-		Member m1 = new Member(id, pw, nick);
+		Member m1 = new Member(mNum, id, pw, nick);
 		members.add(m1);
+		mNum++;
+		System.out.println("=== 회원 가입이 완료되었습니다. ===");
 	}
+
 	//=================================================================
 	public boolean doLogin(String inputId, String inputPw) {
 		for( int i=0; i<members.size(); i++) {
@@ -288,21 +307,23 @@ class BoardApp {
 				return true;
 			}
 		}
+		return false;
 	}
-	
-	
+
 	//=================================================================
 	public void loginMember() {
 		System.out.println("아이디를 입력해주세요 :");
 		String id = sc.next();
 		System.out.println("비밀번호를 입력해주세요 :");
 		String pw = sc.next();
-		
-		if (doLogin(inputIp,inPutPw)) {
-			
+
+		if (doLogin(id, pw)) {
+			System.out.println(loginedMember.nickname + "님 환영합니다!");
+		} else {
+			System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");			
 		}
 	}
-	
+
 	//=================================================================
 	public void deleteArticle() {
 
