@@ -12,8 +12,9 @@ class BoardApp {
 	int num = 4;
 	int rNum = 1;
 	int mNum = 1;
+	int loginCheck = 0;
 	Member loginedMember = new Member(0, null, null, null);
-	
+
 	public void start() {
 
 		Article a1 = new Article(1, "안녕하세요", "안녕하세요", "2021.03.08", "익명", 30);
@@ -25,7 +26,12 @@ class BoardApp {
 		articles.add(a3);
 
 		while (true) {
-			System.out.println("명령어를 입력해주세요 :");
+			if (loginCheck != 0) {
+				System.out.println("명령어를 입력해주세요[" + loginedMember.loginId + "(" + loginedMember.nickname +")] :");				
+			} else {
+				System.out.println("명령어를 입력해주세요 :");								
+			}
+
 			String command = sc.next();
 
 			if (command.equals("exit")) {
@@ -52,12 +58,15 @@ class BoardApp {
 
 			} else if (command.equals("read")) {
 				readArticle();
-				
+
 			} else if (command.equals("signup")) {
 				addMember();
-				
+
 			} else if (command.equals("signin")) {
 				loginMember();
+
+			}  else if (command.equals("signout")) {
+				logoutMember();
 			}
 		}
 	}
@@ -258,28 +267,34 @@ class BoardApp {
 
 	//=================================================================
 	public void replyArticle(Article a1) {
-
-		System.out.println("댓글 내용을 입력해주세요 :");
-		String newReply = sc.next();
-		String regDate = Util.getNowDate();
-		Reply reply = new Reply(rNum, a1.num, newReply, "익명", regDate);
-		replies.add(reply);
-		System.out.println("댓글이 등록되었습니다.");
-
-		printArticle(a1);
-
-		//		게시글별로 댓글이 관리가 되야하지 않을까? 
-		//		그러면 게시글의 번호를 갖는 댓글만 먼저 정리하는 과정이 필요하지 않을지...
-		System.out.println("=========댓글=========");
-		for (int i=0; i<replies.size(); i++) {
-			Reply r1 = replies.get(i);
-			System.out.println("내용 : " + r1.reply);
-			System.out.println("작성자 : " + r1.nickname);
-			System.out.println("작성일 : " + r1.regDate);
+		if (loginCheck ==0) {
+			System.out.println("로그인 후 작성해주세요.");
+			loginMember();
+		} else {
+			System.out.println("댓글 내용을 입력해주세요 :");
+			String newReply = sc.next();
+			String regDate = Util.getNowDate();
+			Reply reply = new Reply(rNum, a1.num, newReply, loginedMember.nickname, regDate);
+			replies.add(reply);
+			System.out.println("댓글이 등록되었습니다.");
+			
+			printArticle(a1);
+			
+			//		게시글별로 댓글이 관리가 되야하지 않을까? 
+			//		그러면 게시글의 번호를 갖는 댓글만 먼저 정리하는 과정이 필요하지 않을지...
+			System.out.println("=========댓글=========");
+			for (int i=0; i<replies.size(); i++) {
+				Reply r1 = replies.get(i);
+				if(a1.num == r1.articleNum) {
+					System.out.println("내용 : " + r1.reply);
+					System.out.println("작성자 : " + r1.nickname);
+					System.out.println("작성일 : " + r1.regDate);
+				}
+			}
+			System.out.println("====================");
+			
+			rNum++;
 		}
-		System.out.println("====================");
-
-		rNum++;
 	}
 
 
@@ -295,8 +310,37 @@ class BoardApp {
 		Member m1 = new Member(mNum, id, pw, nick);
 		members.add(m1);
 		mNum++;
-		System.out.println("=== 회원 가입이 완료되었습니다. ===");
+		System.out.println("=== 회원 가입이 완료되었습니다. ===");			
+
 	}
+
+	//	public void addMember() {
+	//		String inputedId = "";
+	//		if (loginCheck != 0) {
+	//			System.out.println("로그아웃 이후 회원 가입이 가능합니다.");
+	//		} else {
+	//			System.out.println("==== 회원 가입을 진행합니다. ====");
+	//			while(true) {
+	//				System.out.print("아이디를 입력해주세요 : ");
+	//				inputedId = sc.next();
+	//				for( int i=0; i<members.size(); i++) {
+	//					if ( inputedId.equals(members.get(i).loginId) ) {
+	//						System.out.print("중복된 아이디입니다.");
+	//					} else {
+	//						System.out.print("비밀번호를 입력해주세요 : ");
+	//						String pw = sc.next();
+	//						System.out.print("닉네임을 입력해주세요 : ");
+	//						String nick = sc.next();
+	//						Member m1 = new Member(mNum, inputedId, pw, nick);
+	//						members.add(m1);
+	//						mNum++;
+	//						System.out.println("=== 회원 가입이 완료되었습니다. ===");			
+	//						break;
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
 
 	//=================================================================
 	public boolean doLogin(String inputId, String inputPw) {
@@ -304,6 +348,7 @@ class BoardApp {
 			Member member = members.get(i);
 			if (member.loginId.equals(inputId) && member.loginPw.equals(inputPw)) {
 				loginedMember = member;
+				loginCheck++;
 				return true;
 			}
 		}
@@ -312,15 +357,30 @@ class BoardApp {
 
 	//=================================================================
 	public void loginMember() {
-		System.out.println("아이디를 입력해주세요 :");
-		String id = sc.next();
-		System.out.println("비밀번호를 입력해주세요 :");
-		String pw = sc.next();
-
-		if (doLogin(id, pw)) {
-			System.out.println(loginedMember.nickname + "님 환영합니다!");
+		if (loginCheck != 0 ) {
+			System.out.println("이미 로그인하셨습니다.");	
 		} else {
-			System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");			
+			System.out.println("아이디를 입력해주세요 :");
+			String id = sc.next();
+			System.out.println("비밀번호를 입력해주세요 :");
+			String pw = sc.next();
+
+			if (doLogin(id, pw)) {
+				System.out.println(loginedMember.nickname + "님 환영합니다!");
+			} else {
+				System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");			
+			}	
+		}
+	}
+
+	//=================================================================
+	public void logoutMember() {
+		if (loginCheck == 0 ) {
+			System.out.println("로그아웃 상태입니다.");	
+		} else {
+			loginedMember = new Member(0, null, null, null);
+			loginCheck--;
+			System.out.println("로그아웃되었습니다. ");
 		}
 	}
 
@@ -340,5 +400,5 @@ class BoardApp {
 
 		printArticleList(articles);
 	}
-	//=================================================================
 }
+//=================================================================
