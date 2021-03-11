@@ -4,14 +4,14 @@ public class Reply {
 	
 	int num;
 	int articleNum;
-	String reply; 
+	String body; 
 	String nickname;
 	String regDate;
 
-	public Reply(int num, int articleNum, String reply, String nickname, String regDate) {
+	public Reply(int num, int articleNum, String body, String nickname, String regDate) {
 		this.num = num;
 		this.articleNum = articleNum;
-		this.reply = reply;
+		this.body = body;
 		this.nickname = nickname;
 		this.regDate = regDate;
 	}
