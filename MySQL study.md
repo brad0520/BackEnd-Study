@@ -25,7 +25,7 @@
 				§ 제약의 종류 :
 					□ PRIMARY KEY : 주키 설정(데이터 중복 허용X + not null)
 					□ NOT NULL : NULL데이터 허용 안함. 무조건 데이터 들어와야함.
-					□ AUTO_INCREMENT : 자동증가. int형이고 주키인 컬럼에만 사용.
+					□  AUTO_INCREMENT : 자동증가. int형이고 주키인 컬럼에만 사용.
 					□ UINSIGNED : 음수 표현 제거.
 					□ UNIQUE : 중복데이터 허용 X
 		• 테이블, 데이터베이스 삭제 : DROP
@@ -33,7 +33,6 @@
 			○ 테이블 삭제 : DROP TABLE 테이블명
 		• 테이블 내 모든 데이터 삭제 : TRUNCATE
 			○ TRUNCATE TABLE 테이블명
-	
 	
 		데이터 조작 언어(DML)
 			• 데이터 조회 : SELECT
@@ -45,4 +44,6 @@
 			• 데이터 삭제 : DELETE
 				○ DELETE FROM 테이블 WHERE 조건
 	
-	
+	• DISTINCT 와 GROUP BY : GROUP BY는 정렬기능이 있고 집계함수를 사용하면 그룹별로 집계 가능
+	• 조건에 OR 혹은 IN ( ) 을 사용 가능
+	• where / group by / having 순서대로 적용하여 조건을 추가
